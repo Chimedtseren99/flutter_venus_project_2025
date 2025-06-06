@@ -203,7 +203,7 @@ void main() {
   print(toirog.getArea);
   print (toirog.getCircumference);
   print (toirog.getDiameter);
-  toirog.getArea;
+
 
 
 
