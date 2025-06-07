@@ -151,8 +151,26 @@ class Circle {
   void niit (){
     print("talbai ni $getArea , $getCircumference, $getDiameter");
   }
-  
+// exercise 8  
+class Temperature {
+  double celsius;
+
+  Temperature(this.celsius);
+
+  double toFahrenheit() {
+    return (celsius * 9 / 5) + 32;
+  }
+
+  double staticFahrenheit() {
+    return celsius; // Returning celsius as there's no staticFanrenheit to divide by
+  }
+
+  void displayBoth() {
+    print('Celsius: $celsius, Fahrenheit: ${toFahrenheit()}');
+  }
 }
+
+
 
 void main() {
   // exercise 01
@@ -203,8 +221,11 @@ void main() {
   print(toirog.getArea);
   print (toirog.getCircumference);
   print (toirog.getDiameter);
-
-
+// exercise 08
+Temperature gradus = Temperature(37.5);
+  print('Fahrenheit: ${gradus.toFahrenheit()}');
+  print('Static Fahrenheit (Celsius Value): ${gradus.staticFahrenheit()}');
+  gradus.displayBoth();
 
 
 }
