@@ -1,0 +1,33 @@
+void main() {
+  var book1 = Book('The Great Gatsby', 'F. Scott Fitzgerald', '123456');
+  print('Title: ${book1.title}, Author: ${book1.author}, ISBN: ${book1.isbn}');
+  print('Available: ${book1.isAvailable}');
+}
+
+class Book {
+  String title; // Номын нэр
+  String author; // Зохиолч
+  String isbn; // ISBN дугаар
+  bool isAvailable; // Боломжит эсэх
+
+  Book(this.title, this.author, this.isbn, {this.isAvailable = true});
+}
+
+class LibraryMember {
+  String name; // Гишүүний нэр
+  String memberId; // Гишүүний дугаар
+  List<Book> borrowedBooks = []; // Зээлсэн номын жагсаалт
+  LibraryMember(this.name, this.memberId);
+  void borrowBooks(book){
+    isAvailable = false;
+  } else {
+    print ('Sorry, The Great Gatsby is
+not available');
+  }
+  void returnBook (book){
+    returnBook.remove
+    List<contains> removeList = ['The Great Gatsby']:
+    print (removeList):
+    removeList.removeAt(0);
+  }
+}
