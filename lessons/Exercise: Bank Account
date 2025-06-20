@@ -1,0 +1,76 @@
+void main() {
+  BankAccount account = BankAccount(
+    accountHolder: 'Chimedtseren',
+    accountType: 'Savings',
+    balance: 1000,
+  );
+  account.deposit(500.00);
+  account.withdraw(200.00);
+  account.checkAccountStatus();
+  account.calculateInterest();
+}
+
+class BankAccount {
+  String accountHolder;
+  String accountType;
+  double balance;
+  int transactionCount = 0;
+
+  // Constructor
+  BankAccount({
+    required this.accountHolder,
+    required this.accountType,
+    required this.balance,
+  });
+
+  void deposit(double amount) {
+    if (amount <= 0) {
+      print('Invalid deposit amount');
+    } else {
+      balance += amount;
+      transactionCount++;
+      print("Deposited $amount");
+      print("New balance $balance");
+    }
+  }
+
+  void withdraw(double amount) {
+    if (amount <= 0) {
+      print('Invalid withdrawal amount');
+      return;
+    } else if (amount > balance) {
+      print("Insufficient funds");
+      return;
+    } else {
+      balance -= amount;
+      transactionCount++;
+      print("Withdrawn $amount");
+      print("New balance $balance");
+    }
+  }
+
+  void checkAccountStatus() {
+    print('Account Holder: $accountHolder');
+    print('Account Type: $accountType');
+    print('Balance: $balance');
+    print('Transaction Count: $transactionCount');
+    if (balance < 100) {
+      print("Warning: Low Balance");
+    } else if (balance > 10000) {
+      print("Notice: Consider investment options");
+    }
+  }
+
+  void calculateInterest() {
+    double interestRate;
+    if (accountType == 'Savings') {
+      interestRate = 0.03; // 3% interest rate
+    } else {
+      interestRate = 0.01; // 1% interest rate for other account types
+    }
+    double interest = balance * interestRate / 12;
+    balance += interest;
+    print('Interest calculated: $interest');
+    print('New balance: $balance');
+  }
+}

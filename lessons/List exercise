@@ -1,0 +1,32 @@
+void main() {
+  // dasgal 1
+  List<String> friends = ['Ochir', 'Jerry', 'Zozo'];
+  print(friends);
+  friends.add('Chimdee');
+  print(friends);
+
+  // Find the index of 'Jerry'
+  int jerryIndex = friends.indexOf('Jerry');
+
+//   Print the index of 'Jerry'
+  if (jerryIndex != -1) {
+    print('Jerry\'s index is: $jerryIndex');
+  } else {
+    print('Jerry is not in the list.');
+  }
+  friends.removeAt(1);
+  print(friends);
+  friends.insert(1,'Jerry');
+  print(friends);
+  
+  //dasgal 2
+  const numbers = [1, 2, 4, 7];
+
+
+  for (var number in numbers) {
+    print(number + 5);
+  }
+  for (var number in numbers) {
+    print(number * 2);
+  }
+}
