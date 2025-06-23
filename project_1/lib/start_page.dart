@@ -44,7 +44,7 @@ class _StartPageState extends State<StartPage> {
                     color: Color(0xfff57ac8),
                   ),
                 )),
-          )
+          ),
         ],
       ),
     ));

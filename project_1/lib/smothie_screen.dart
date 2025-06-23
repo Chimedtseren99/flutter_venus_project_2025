@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_1/start_page.dart';
 
+import 'card.dart';
+
 class SmothieScreen extends StatefulWidget {
   const SmothieScreen({super.key});
 
@@ -113,144 +115,25 @@ class _SmothieScreenState extends State<SmothieScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(padding: EdgeInsets.only( top: 10)),
-                Container(
-                  width: 160,
-                  height: 231,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color(0xffcae1ff),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 58,
-                            height: 37,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xffa3c9fc),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '\$36',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff2884ff),
-                                      fontSize: 20),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: Image.asset('assets/images/smoothie.png'),
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 10)),
-                      Text(
-                        'Blueberry Strawberry',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(
-                            left: 15,
-                          )),
-                          SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: Image.asset('assets/images/Heart.png'),
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 95)),
-                          Icon(Icons.add),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 20)),
-                Container(
-                  width: 160,
-                  height: 231,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color(0xffcae1ff),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 58,
-                            height: 37,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xffa3c9fc),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '\$36',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff2884ff),
-                                      fontSize: 20),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: Image.asset('assets/images/smoothie.png'),
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 10)),
-                      Text(
-                        'Blueberry Strawberry',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(
-                            left: 15,
-                          )),
-                          SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: Image.asset('assets/images/Heart.png'),
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 95)),
-                          Icon(Icons.add),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                Cards(bgColor: Color(0xffcae1ff), bgColor2: Color(0xffa3c9fc), productName: "Blueberry Strawberry", image:'assets/images/smoothie.png'),
+                Cards(bgColor: Color(0xffffd6d6), bgColor2: Color(0xffffc4c4), productName: "Strawberry", image: 'assets/images/smoothie (5).png'),
+
               ],
             ),
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(padding: EdgeInsets.only( top: 10)),
+                Cards(bgColor: Color(0xffd1ffd0), bgColor2: Color(0xffb6ffb5), productName: "Island Green", image: 'assets/images/smoothie (4).png'),
+                Cards(bgColor: Color(0xfffeffba), bgColor2: Color(0xfffbfe83), productName: "Banana", image: 'assets/images/banana-smoothie.png')
+              ],
+            )
           ],
         ),
       ),
     );
   }
 }
+
+
