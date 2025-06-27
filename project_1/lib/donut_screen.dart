@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project_1/card.dart';
+import 'package:project_1/details_5.dart';
+import 'package:project_1/details_6.dart';
+import 'package:project_1/details_7.dart';
+import 'package:project_1/details_8.dart';
+import 'package:project_1/smothie_screen.dart';
 import 'package:project_1/start_page.dart';
 
 class DonutScreen extends StatefulWidget {
@@ -68,18 +73,22 @@ class _DonutScreenState extends State<DonutScreen> {
                     height: 53,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
-                      color: Color(0xffc1dcff),
+                      color: Colors.white,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Smothie',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        TextButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SmothieScreen()));
+                        },
+                            child: Text(
+                              'Smothie',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'Nunito',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                         ),
                       ],
                     ),
@@ -90,7 +99,7 @@ class _DonutScreenState extends State<DonutScreen> {
                     height: 53,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
-                      color: Color(0xffffffff),
+                      color: Color(0xffFFCCCC),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -113,16 +122,32 @@ class _DonutScreenState extends State<DonutScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Cards(bgColor: Color(0xffcae1ff), bgColor2: Color(0xffa3c9fc), productName: "Ice Cream Dunkins", image: 'assets/images/donut (7).png', isDonut: true,),
-                  Cards(bgColor: Color(0xffffd6d6) , bgColor2: Color(0xffffc4c4), productName: "Strawberry dunkins", image:'assets/images/donut (3).png', isDonut: true),
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> details_5()));
+                    },
+                      child: Cards(bgColor: Color(0xffcae1ff), bgColor2: Color(0xffa3c9fc), productName: "Ice Cream Dunkins", image: 'assets/images/donut (7).png', isDonut: true,)),
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> details_6()));
+                    },
+                      child: Cards(bgColor: Color(0xffffd6d6) , bgColor2: Color(0xffffc4c4), productName: "Strawberry dunkins", image:'assets/images/donut (3).png', isDonut: true)),
                 ],
               ),
               SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Cards(bgColor: Color(0xffd1ffd0), bgColor2: Color(0xffb6ffb5), productName: "Choco Mint Dunkins", image: 'assets/images/donut.png', isDonut: true),
-                  Cards(bgColor: Color(0xfffeffba), bgColor2: Color(0xfffbfe83), productName: "Banana Dunkins", image: 'assets/images/donut (1).png', isDonut: true),
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> details_7()));
+                    },
+                      child: Cards(bgColor: Color(0xffd1ffd0), bgColor2: Color(0xffb6ffb5), productName: "Choco Mint Dunkins", image: 'assets/images/donut.png', isDonut: true)),
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>  details_8()));
+                    },
+                      child: Cards(bgColor: Color(0xfffeffba), bgColor2: Color(0xfffbfe83), productName: "Banana Dunkins", image: 'assets/images/donut (1).png', isDonut: true)),
 
                 ],
               )
