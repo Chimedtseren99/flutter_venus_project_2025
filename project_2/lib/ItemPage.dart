@@ -9,6 +9,7 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,19 +75,28 @@ class _ItemPageState extends State<ItemPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    width: 19,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      color: Color(0xffe25353),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Image.asset(
-                      "assets/images/diminish.png",
-                    )),
+                TextButton(
+                  onPressed: (){
+                    if(count > 0){
+                      setState(() {
+                        count--;
+                      });
+                    }
+                  },
+                  child: Container(
+                      width: 19,
+                      height: 18,
+                      decoration: BoxDecoration(
+                        color: Color(0xffe25353),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Image.asset(
+                        "assets/images/diminish.png",
+                      )),
+                ),
                 Padding(padding: EdgeInsets.all(10)),
                 Text(
-                  "2",
+                  "$count",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -95,14 +105,21 @@ class _ItemPageState extends State<ItemPage> {
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(10)),
-                Container(
-                    width: 19,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      color: Color(0xffe25353),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Image.asset("assets/images/plus.png")),
+                TextButton(
+                  onPressed: (){
+                    setState(() {
+                      count++;
+                    });
+                  },
+                  child: Container(
+                      width: 19,
+                      height: 18,
+                      decoration: BoxDecoration(
+                        color: Color(0xffe25353),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Image.asset("assets/images/plus.png")),
+                ),
               ],
             ),
             SizedBox(height: 70),

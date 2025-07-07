@@ -318,6 +318,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context) => ItemPage()));
                         },
                         style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
                             backgroundColor: Color(0xffff4141),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
@@ -325,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           'Menu',
                           style: TextStyle(
-                            fontSize: 11,
+                            fontSize: 19,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
