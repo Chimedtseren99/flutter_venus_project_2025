@@ -6,7 +6,7 @@ import 'package:project_2/start.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: ItemPage(),
+      home: Start(),
       debugShowCheckedModeBanner: false,
     ),
   );
