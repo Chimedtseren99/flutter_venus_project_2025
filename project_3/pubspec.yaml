@@ -78,7 +78,9 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: assets/fonts/Manrope-VariableFont_wght.ttf
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+        - asset: assets/fonts/Manrope-Medium.ttf
+        - asset: assets/fonts/Manrope-SemiBold.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
