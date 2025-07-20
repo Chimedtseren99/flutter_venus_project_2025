@@ -139,15 +139,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: (){ Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HarryIntro()));},
-                  child: Gallery(
-                      image: 'assets/images/Rectangle 6.png',
-                      name: 'Harry',
-                      age: '3 years',
-                      breed: 'Yorkshire\nTerrier'),
-                ),
+                Gallery(
+                    image: 'assets/images/Rectangle 6.png',
+                    name: 'Harry',
+                    age: '3 years',
+                    breed: 'Yorkshire\nTerrier'),
 
                 Gallery(
                     image: 'assets/images/Rectangle 8.png',

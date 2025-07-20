@@ -1,0 +1,204 @@
+import 'package:flutter/material.dart';
+import 'package:project03/home_screen.dart';
+class JennieIntro extends StatefulWidget {
+  const JennieIntro({super.key});
+
+  @override
+  State<JennieIntro> createState() => _JennieIntroState();
+}
+
+class _JennieIntroState extends State<JennieIntro> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Center(
+                child: Image.asset(
+                  'assets/images/bigUilli (4).png',
+                  width: 338,
+                  height: 360,
+                ),
+              ),
+              SizedBox(height: 20),
+              Positioned(
+                top: 15,
+                left: 50,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        },
+                        // padding: EdgeInsets.zero,
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 250)),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white.withOpacity(0.3),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        },
+                        padding: EdgeInsets.zero,
+                        icon: Icon(Icons.star),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 80,
+                top: 300,
+                child: Container(
+                  width: 80,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                  child: Text(
+                    'Jennie \non a walk',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Samoyed Willy',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              fontFamily: "Manrope",
+            ),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 70,
+                height: 33,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.blueAccent,
+                ),
+                child: Text(
+                  '2 years',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Manrope',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Container(
+                width: 132,
+                height: 33,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.greenAccent,
+                ),
+                child: Text(
+                  'Knows command',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Manrope',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Container(
+                width: 56,
+                height: 33,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.yellowAccent,
+                ),
+                child: Text(
+                  '23kg',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Manrope',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Container(
+            width: 327,
+            height: 96,
+            child: Text(
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the  industry\'s standard dummy text ever since the 1500s',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Manrope',
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Container(
+            width: 327,
+            height: 96,
+            child: Text('Updated 9th of December'),
+          ),
+          Container(
+            width: 300,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60),
+              color: Colors.pink.withOpacity(0.5),
+            ),
+            child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Buy now',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+}
