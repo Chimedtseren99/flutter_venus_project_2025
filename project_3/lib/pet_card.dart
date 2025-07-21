@@ -27,6 +27,7 @@ class _PetCardState extends State<PetCard> {
         // Амьтны нэрээр нь ялгах хуудас руу үсэрнэ
         if(widget.name == "Harry"){
           Navigator.push(context, MaterialPageRoute(builder: (_) => const HarryIntro()));
+          print("clicked");
         }
         else if (widget.name == "Henry"){
           Navigator.push(context, MaterialPageRoute(builder: (_) => const HenryIntro()));

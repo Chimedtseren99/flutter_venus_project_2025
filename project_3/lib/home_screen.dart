@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project03/harry_intro.dart';
+import 'package:project03/my_favourite.dart';
+import 'package:project03/pet_card.dart';
+import 'package:project03/profile.dart';
 import 'package:project03/start_srceen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,71 +16,75 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(left: 30)),
-                Text(
-                  'takee',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    fontFamily: 'Manrope',
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(left: 250)),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => StartSrceen()));
-                  },
-                  child: Image.asset(
-                    'assets/images/umbuu 1.png',
-                    width: 25,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 95,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => StartSrceen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xfffbd1c4)),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/All.png',
-                          width: 25,
-                        ),
-                        Text(
-                          'All',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Manrope",
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white.withOpacity(0.95),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(padding: EdgeInsets.only(left: 30)),
+                  Text(
+                    'takee',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontFamily: 'Manrope',
                     ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 52,
-                  child: ElevatedButton(
+                  Padding(padding: EdgeInsets.only(left: 250)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Profile()));
+                    },
+                    child: Image.asset(
+                      'assets/images/umbuu 1.png',
+                      width: 25,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StartSrceen()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xfffbd1c4)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            'assets/images/All.png',
+                            width: 25,
+                          ),
+                          Text(
+                            'All',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "Manrope",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    height: 52,
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -84,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (context) => StartSrceen()));
                       },
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Image.asset(
                             'assets/images/Cats.png',
@@ -100,90 +109,142 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xfffffffff),
+                        backgroundColor: Colors.white.withOpacity(0.85),
                         side: BorderSide(
-                          color:Color(0xffcce1f4),
+                          color: Color(0xffcce1f4),
                           width: 1,
-                        )
-                      )),
-                ),
-                Container(
-                  width: 100,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => StartSrceen()));
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/Dogs.png',
-                          width: 25,
                         ),
-                        Text(
-                          'Dogs',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Manrope",
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                        padding: EdgeInsets.all(10),
+                      ),
                     ),
                   ),
+                  Container(
+                    width: 100,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StartSrceen()));
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/Dogs.png',
+                            width: 25,
+                          ),
+                          Text(
+                            'Dogs',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "Manrope",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white.withOpacity(0.85),
+                        side: BorderSide(
+                          color: Color(0xffcce1f4),
+                          width: 1,
+                        ),
+                        padding: EdgeInsets.all(10),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  PetCard(
+                    name: "Harry",
+                    child: Gallery(
+                        image: 'assets/images/Rectangle 6.png',
+                        name: 'Harry',
+                        age: '3 years',
+                        breed: 'Yorkshire\nTerrier'),
+                  ),
+                  PetCard(
+                    name: "Mark",
+                    child: Gallery(
+                        image: 'assets/images/Rectangle 8.png',
+                        name: 'Mark',
+                        age: '2 month',
+                        breed: 'British'),
+                  )
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  PetCard(name: "Henry",
+                    child: Gallery(
+                      image: 'assets/images/Rectangle 3.png',
+                      name: 'Henry',
+                      age: '3 years',
+                      breed: 'Mestizo'),),
+                  PetCard(name: 'Lopy',
+                    child: Gallery(
+                      image: 'assets/images/Rectangle 8 (1).png',
+                      name: 'Lopy',
+                      age: '3 years',
+                      breed: 'Yorkshire\nTerrier'),)
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  PetCard(name: 'Jennie',
+                    child: Gallery(
+                      image: 'assets/images/Rectangle 5.png',
+                      name: 'Jennie',
+                      age: '3 years',
+                      breed: 'Yorkshire\nTerrier'),),
+                  PetCard(name: 'Cris',
+                    child: Gallery(
+                      image: 'assets/images/Rectangle 4.png',
+                      name: 'Cris',
+                      age: '3 years',
+                      breed: 'Mestizo'),)
+                ],
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: TextButton(
+                    onPressed: () {},
+                    child: SvgPicture.asset(
+                      "assets/images/iconHome.svg",
+                    )),
+                label: ""),
+            BottomNavigationBarItem(
+              icon: TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyFavourite()));
+                },
+                child: SvgPicture.asset("assets/images/iconFavorite.svg"),
+              ),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+                icon: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Profile()));
+                  },
+                  child: SvgPicture.asset("assets/images/iconUser.svg"),
                 ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Gallery(
-                    image: 'assets/images/Rectangle 6.png',
-                    name: 'Harry',
-                    age: '3 years',
-                    breed: 'Yorkshire\nTerrier'),
-
-                Gallery(
-                    image: 'assets/images/Rectangle 8.png',
-                    name: 'Mark',
-                    age: '2 month',
-                    breed: 'British'),
-              ],
-            ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Gallery(
-                    image: 'assets/images/Rectangle 3.png',
-                    name: 'Henry',
-                    age: '3 years',
-                    breed: 'Mestizo'),
-                Gallery(
-                    image: 'assets/images/Rectangle 8 (1).png',
-                    name: 'Lopy',
-                    age: '3 years',
-                    breed: 'Yorkshire\nTerrier'),
-              ],
-            ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Gallery(
-                    image: 'assets/images/Rectangle 5.png',
-                    name: 'Jennie',
-                    age: '3 years',
-                    breed: 'Yorkshire\nTerrier'),
-                Gallery(
-                    image: 'assets/images/Rectangle 4.png',
-                    name: 'Cris',
-                    age: '3 years',
-                    breed: 'Mestizo'),
-              ],
-            ),
+                label: ""),
           ],
         ),
       ),
@@ -231,8 +292,21 @@ class Gallery extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Image.asset(
-                    'assets/images/Vector.png',
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: SizedBox(
+                      width: 34,
+                      height: 34,
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            backgroundColor: Colors.white.withOpacity(0.3)),
+                        child: Image.asset(
+                          'assets/images/Vector.png',
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
