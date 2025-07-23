@@ -84,6 +84,7 @@ class _CrisIntroState extends State<CrisIntro> {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white.withOpacity(0.2),
                   ),
+                  padding: EdgeInsets.only(left: 10, top: 5),
                   child: Text(
                     'Cris \non a walk',
                     textAlign: TextAlign.start,
@@ -113,8 +114,9 @@ class _CrisIntroState extends State<CrisIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.blueAccent,
+                  color: Color(0xffbdd2fc),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
                   '1 years',
                   textAlign: TextAlign.center,
@@ -130,8 +132,9 @@ class _CrisIntroState extends State<CrisIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.greenAccent,
+                  color: Color(0xffb4fc8e),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
                   'Knows command',
                   textAlign: TextAlign.center,
@@ -147,10 +150,11 @@ class _CrisIntroState extends State<CrisIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.yellowAccent,
+                  color: Color(0xffffde96),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
-                  '15kg',
+                  '13kg',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Manrope',

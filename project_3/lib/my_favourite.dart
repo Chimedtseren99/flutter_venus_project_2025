@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyFavourite extends StatefulWidget {
   const MyFavourite({super.key});
@@ -53,13 +54,33 @@ class _MyFavouriteState extends State<MyFavourite> {
                             child:
                             Image.asset(
                               'assets/images/Rectangle 5.png',
+                              fit: BoxFit.cover,
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Image.asset(
-                                'assets/images/Vector.png',
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: SizedBox(
+                                  width: 34,
+                                  height: 34,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => MyFavourite()));
+                                    },
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        backgroundColor: Colors.white.withOpacity(0.3)),
+
+                                    child: SvgPicture.asset(
+                                      'assets/images/Vector.svg',
+                                      width: 22,
+                                      height: 22,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -130,12 +151,32 @@ class _MyFavouriteState extends State<MyFavourite> {
                             'assets/images/Rectangle 6.png',
                             width: 395,
                             height: 232,
+                            fit: BoxFit.cover,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Image.asset(
-                                'assets/images/Vector.png',
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: SizedBox(
+                                  width: 34,
+                                  height: 34,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => MyFavourite()));
+                                    },
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        backgroundColor: Colors.white.withOpacity(0.3)),
+
+                                    child: SvgPicture.asset(
+                                      'assets/images/Vector.svg',
+                                      width: 22,
+                                      height: 22,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -206,12 +247,32 @@ class _MyFavouriteState extends State<MyFavourite> {
                             'assets/images/Rectangle 3.png',
                             width: 395,
                             height: 232,
+                            fit: BoxFit.cover,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Image.asset(
-                                'assets/images/Vector.png',
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: SizedBox(
+                                  width: 34,
+                                  height: 34,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => MyFavourite()));
+                                    },
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        backgroundColor: Colors.white.withOpacity(0.3)),
+
+                                    child: SvgPicture.asset(
+                                      'assets/images/Vector.svg',
+                                      width: 22,
+                                      height: 22,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),

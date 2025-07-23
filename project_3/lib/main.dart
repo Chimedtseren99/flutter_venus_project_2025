@@ -13,7 +13,7 @@ import 'package:project03/start_srceen.dart';
 
 void main() {
   runApp (MaterialApp(
-    home: HomeScreen(),
+    home: StartSrceen(),
     debugShowCheckedModeBanner: false,
   ));
 }

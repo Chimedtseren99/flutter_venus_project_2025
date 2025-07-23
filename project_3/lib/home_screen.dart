@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project03/Cats.dart';
+import 'package:project03/Dogs.dart';
 import 'package:project03/harry_intro.dart';
 import 'package:project03/my_favourite.dart';
 import 'package:project03/pet_card.dart';
@@ -89,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StartSrceen()));
+                                builder: (context) => Cats()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -126,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StartSrceen()));
+                                builder: (context) => Dogs()));
                       },
                       child: Row(
                         children: [
@@ -252,20 +254,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Gallery extends StatelessWidget {
+class Gallery extends StatefulWidget {
   final String image;
   final String name;
   final String age;
   final String breed;
+  bool isHover = false;
+  Color starColor = Colors.white;
 
-  const Gallery({
+Gallery({
     required this.image,
     required this.name,
     required this.age,
     required this.breed,
     super.key,
+
   });
 
+  @override
+  State<Gallery> createState() => _GalleryState();
+}
+
+class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -287,7 +297,7 @@ class Gallery extends StatelessWidget {
           Stack(
             children: [
               Image.asset(
-                image,
+                widget.image,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -298,12 +308,25 @@ class Gallery extends StatelessWidget {
                       width: 34,
                       height: 34,
                       child: TextButton(
-                        onPressed: () {},
+                        onHover: (val){
+                          setState((){
+                            widget.isHover = val;
+                            widget.starColor = Colors.red;
+                          });
+                        },
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => MyFavourite()));
+                        },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                             backgroundColor: Colors.white.withOpacity(0.3)),
-                        child: Image.asset(
-                          'assets/images/Vector.png',
+
+                        child: SvgPicture.asset(
+                          'assets/images/Vector.svg',
+                          width: 22,
+                          height: 22,
+                          color: widget.starColor,
                         ),
                       ),
                     ),
@@ -317,7 +340,7 @@ class Gallery extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                name,
+                widget.name,
                 style: TextStyle(
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w700,
@@ -326,7 +349,7 @@ class Gallery extends StatelessWidget {
                 ),
               ),
               Text(
-                age,
+                widget.age,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -340,7 +363,7 @@ class Gallery extends StatelessWidget {
             children: [
               Padding(padding: EdgeInsets.only(left: 26)),
               Text(
-                breed,
+                widget.breed,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,

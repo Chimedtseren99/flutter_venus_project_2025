@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project03/home_screen.dart';
+import 'package:project03/my_favourite.dart';
 
 class HarryIntro extends StatefulWidget {
   const HarryIntro({super.key});
@@ -45,7 +46,7 @@ class _HarryIntroState extends State<HarryIntro> {
                               MaterialPageRoute(
                                   builder: (context) => HomeScreen()));
                         },
-                        // padding: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
                         icon: Icon(
                           Icons.arrow_back_ios,
                           size: 20,
@@ -66,7 +67,7 @@ class _HarryIntroState extends State<HarryIntro> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => MyFavourite()));
                         },
                         padding: EdgeInsets.zero,
                         icon: Icon(Icons.star),
@@ -85,6 +86,7 @@ class _HarryIntroState extends State<HarryIntro> {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.white.withOpacity(0.2),
                   ),
+                  padding: EdgeInsets.only(left: 10, top: 5),
                   child: Text(
                     'Harry \non a walk',
                     textAlign: TextAlign.start,
@@ -114,8 +116,9 @@ class _HarryIntroState extends State<HarryIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.blueAccent,
+                  color: Color(0xffbdd2fc),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
                   '1 years',
                   textAlign: TextAlign.center,
@@ -131,8 +134,9 @@ class _HarryIntroState extends State<HarryIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.greenAccent,
+                  color: Color(0xffb4fc8e),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
                   'Knows command',
                   textAlign: TextAlign.center,
@@ -148,8 +152,9 @@ class _HarryIntroState extends State<HarryIntro> {
                 height: 33,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.yellowAccent,
+                  color: Color(0xffffde96),
                 ),
+                padding: EdgeInsets.only(left: 5, top: 5),
                 child: Text(
                   '13kg',
                   textAlign: TextAlign.center,
