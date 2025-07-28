@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_4/Solar.dart';
 import 'package:project_4/Splash.dart';
 
 class Login extends StatefulWidget {
@@ -13,7 +14,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Stack(
+      body: SingleChildScrollView(child:
+      Stack(
         children: [
           Positioned.fill(
             child: Image.asset("assets/images/image 10.png", fit: BoxFit.cover),
@@ -151,8 +153,14 @@ class _LoginState extends State<Login> {
                             end: Alignment.centerRight),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: MaterialButton(
-                          onPressed: () {},
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>Solar()));
+                          },
+                          style: const ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                          ),
                           child: Text(
                             'Sign in',
                             style: TextStyle(
@@ -160,6 +168,7 @@ class _LoginState extends State<Login> {
                               fontWeight: FontWeight.w800,
                               fontSize: 24,
                               color: Colors.white,
+                              height: 1,
                             ),
                           )),
                     ),
@@ -201,7 +210,13 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>Solar()));
+                          },
+                          style: const ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                          ),
                           child: Text(
                             "Sign up",
                             style: TextStyle(
@@ -220,7 +235,7 @@ class _LoginState extends State<Login> {
             ],
           )
         ],
-      ),
+      ),),
     ));
   }
 }
