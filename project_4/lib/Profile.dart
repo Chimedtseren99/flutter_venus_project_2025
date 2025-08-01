@@ -124,7 +124,7 @@ class _ProfileState extends State<Profile> {
                     image: DecorationImage(image: AssetImage('assets/images/image 14.png'), fit: BoxFit.fill)
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.only(left: 60.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,

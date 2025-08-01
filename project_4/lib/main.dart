@@ -8,7 +8,7 @@ import 'package:project_4/Splash.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: Splash(),
+    home: Login(),
     debugShowCheckedModeBanner: false,
   ));
 }
