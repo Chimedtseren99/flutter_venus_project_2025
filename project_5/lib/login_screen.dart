@@ -11,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -26,27 +26,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
       try {
         await _auth.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
+          email: _nameController.text.trim(),
           password: _passwordController.text.trim(),
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Нэвтрэлт амжилттай')),
         );
         // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      } on FirebaseAuthException catch (error){
+      } on FirebaseAuthException catch (error) {
         String message = 'Нэвтрэлт амжилтгүй боллоо';
-        if (error.code == 'user-not-found'){
-          message = 'И-мэйл хаяг олдсонгүй';
-        } else if (error.code == 'wrong-password'){
+        if (error.code == 'user-not-found') {
+          message = 'Нэвтрэх нэр олдсонгүй';
+        } else if (error.code == 'wrong-password') {
           message = 'Нууц үг буруу байна';
-        } else if (error.code == "invalid-email"){
-          message = 'И-мэйл хаяг буруу форматтай байна';
+        } else if (error.code == "invalid-email") {
+          message = 'Нэрээ зөв оруулна уу';
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(message)),
         );
-      }
-      finally {
+      } finally {
         setState(() {
           _isLoading = false;
         });
@@ -57,10 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Нэвтрэх'),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
@@ -68,42 +64,48 @@ class _LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               children: [
+                Image.asset('assets/images/Logo.png'),
+                SizedBox(height: 20),
                 TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _nameController,
+                  style: TextStyle(color: Colors.white),
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    labelText: "Email",
+                    labelText: "Нэвтрэх нэр",
                     border: OutlineInputBorder(),
-                    prefix: Icon(Icons.email),
+                    prefix: Icon(Icons.person, color: Colors.white,),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "И-мэйл хаягаа оруулна уу";
+                      return "Нэвтрэх нэрээ оруулна уу";
                     }
-                    if (!value.contains("@") || !value.contains(".")) {
-                      return "Буруу и-мэйл хаяг";
+                    if (!value.contains("Uppercase") || !value.contains("")) {
+                      return "Нэвтрэх нэр";
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 TextFormField(
                   controller: _passwordController,
+                  style: TextStyle(color: Colors.white),
                   obscureText: _obscureText,
                   decoration: InputDecoration(
-                      labelText: "Password",
+                      labelText: "Нууц үг",
                       border: OutlineInputBorder(),
-                      prefix: Icon(Icons.lock),
+                      prefix: Icon(Icons.lock, color: Colors.white,),
                       suffixIcon: IconButton(
-                        icon: _obscureText ? Icon(Icons.visibility_off) : Icon(
-                            Icons.visibility),
+                        icon: _obscureText
+                            ? Icon(Icons.visibility_off)
+                            : Icon(Icons.visibility),
                         onPressed: () {
                           setState(() {
                             _obscureText = !_obscureText;
                           });
                         },
-                      )
-                  ),
+                      )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Нууц үгээ оруулна уу";
@@ -114,30 +116,66 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
-                _isLoading ? CircularProgressIndicator():
-                ElevatedButton(onPressed: () {
-                  login();
-                },
-                  child: Text('Нэвтрэх',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: Colors.blueAccent,
+                SizedBox(
+                  height: 20,
+                ),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: const LinearGradient(
+                            colors: [Color(0xffe86b02), Color(0xfffa9541)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            login();
+                          },
+                          child: Text(
+                            'Нэвтрэх',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
+                            shape: RoundedRectangleBorder(),
+                          ),
+                        ),
+                      ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignupScreen()));
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'Шинэ хэрэглэгч үү?  ',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.60),
+                          fontSize: 15,
+                          fontFamily: 'Rubik',
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'Бүртгүүлэх',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: const Color(0xFFE76A01),
+                              ))
+                        ]),
                   ),
                 ),
-                SizedBox(height: 20,),
-                TextButton(onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupScreen()));
-                },
-                    child: Text('Бүртгэлгүй юу? Бүртгүүлэх')),
               ],
             ),
           ),

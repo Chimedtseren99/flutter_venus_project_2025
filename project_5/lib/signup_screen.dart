@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_5/login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -11,9 +12,10 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _isLoading = false;
@@ -56,131 +58,179 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Бүртгүүлэх'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                    prefix: Icon(Icons.email),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(16),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Image.asset('assets/images/Logo.png'),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _nameController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: "Нэвтрэх нэр",
+                      border: OutlineInputBorder(),
+                      prefix: Icon(Icons.person, color: Colors.white,),
+                    ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "И-мэйл хаягаа оруулна уу";
-                    }
-                    if (!value.contains("@") || !value.contains(".")) {
-                      return "Буруу и-мэйл хаяг";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: _obscureText,
-                  decoration: InputDecoration(
-                      labelText: "Password",
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _emailController,
+                    style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "Email",
                       border: OutlineInputBorder(),
-                      prefix: Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                        icon: _obscureText
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Нууц үгээ оруулна уу";
-                    }
-                    if (value.length < 6) {
-                      return "Нууц үг дор хаяж 6 оронтой байна";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _confirmPasswordController,
-                  obscureText: _obscureText2,
-                  decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      border: OutlineInputBorder(),
-                      prefix: Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                        icon: _obscureText2
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText2 = !_obscureText2;
-                          });
-                        },
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Нууц үгээ давтан оруулна уу";
-                    }
-                    if (value != _passwordController.text) {
-                      return "Нууц үг таарахгүй байна";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                _isLoading?
-                CircularProgressIndicator()
-                    : ElevatedButton(
-                  onPressed: () {
-                    signup();
-                  },
-                  child: Text(
-                    'Бүргүүлэх',
+                      prefix: Icon(Icons.email, color: Colors.white,),
+
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "И-мэйл хаягаа оруулна уу";
+                      }
+                      if (!value.contains("@") || !value.contains(".")) {
+                        return "Буруу и-мэйл хаяг";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    style: TextStyle(color: Colors.white),
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        border: OutlineInputBorder(),
+                        prefix: Icon(Icons.lock, color: Colors.white,),
+                        suffixIcon: IconButton(
+                          icon: _obscureText
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Нууц үгээ оруулна уу";
+                      }
+                      if (value.length < 6) {
+                        return "Нууц үг дор хаяж 6 оронтой байна";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    style: TextStyle(color: Colors.white),
+                    obscureText: _obscureText2,
+                    decoration: InputDecoration(
+                        labelText: "Confirm Password",
+                        border: OutlineInputBorder(),
+                        prefix: Icon(Icons.lock, color: Colors.white),
+                        suffixIcon: IconButton(
+                          icon: _obscureText2
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText2 = !_obscureText2;
+                            });
+                          },
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Нууц үгээ давтан оруулна уу";
+                      }
+                      if (value != _passwordController.text) {
+                        return "Нууц үг таарахгүй байна";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _isLoading
+                      ? CircularProgressIndicator()
+                      : Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                              colors: [Color(0xffe86b02), Color(0xfffa9541)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              signup();
+                            },
+                            child: Text(
+                              'Бүртгүүлэх',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Эсвэл',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.white.withValues(alpha: 0.60),
+                      fontSize: 14,
+                      fontFamily: 'Rubik',
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Бүртгэлтэй юу?  ',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.60),
+                            fontSize: 15,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'Нэвтрэх',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline,
+                                  color: const Color(0xFFE76A01),
+                                ))
+                          ]),
                     ),
-                    backgroundColor: Colors.blueAccent,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // TextButton(
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => ()));
-                //     },
-                //     child: Text('Аль хэдийн бүртгэлтэй юу? Нэвтрэх')),
-              ],
+                ],
+              ),
             ),
           ),
         ),
