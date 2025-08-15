@@ -14,18 +14,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp(),);
+  runApp(
+    MyApp(),
+  );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       title: 'Firebase App',
       home: StreamBuilder<User?>(
@@ -47,27 +46,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 // Login болон Signup хоёрыг зохицуулах виджет
 class LoginAndSignUpScreen extends StatefulWidget {
   const LoginAndSignUpScreen({Key? key}) : super(key: key);
-
 
   @override
   State<LoginAndSignUpScreen> createState() => _LoginAndSignUpScreenState();
 }
 
-
 class _LoginAndSignUpScreenState extends State<LoginAndSignUpScreen> {
   bool _showLoginScreen = true;
-
 
   void _toggleScreen() {
     setState(() {
       _showLoginScreen = !_showLoginScreen;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

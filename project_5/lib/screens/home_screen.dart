@@ -39,32 +39,28 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        actions: [
-          // Гарах товчлуур
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _signOut,
-          ),
-        ],
-      ),
+      backgroundColor: Colors.black,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Нүүр',
+            icon: Icon(Icons.home_outlined,
+            color: Colors.white,),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_a_photo),
-            label: 'Пост',
+            icon: Icon(Icons.add_box_outlined,
+            color: Colors.white,),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Профайл',
+            icon: Icon(Icons.person_outline_rounded,
+            color: Colors.white,),
+            label: '',
           ),
         ],
         currentIndex: _selectedIndex,
