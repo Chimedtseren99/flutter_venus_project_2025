@@ -215,190 +215,233 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String? userId; // Хэрвээ өөр хүний profile харвал ID дамжуулна
+
+  const ProfileScreen({Key? key, this.userId}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String? currentUserId;
+
+  @override
+  void initState() {
+    super.initState();
+    currentUserId = widget.userId ?? FirebaseAuth.instance.currentUser?.uid;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Image.asset(
-                  'assets/images/Logo.png',
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.logout,
-                color: Colors.white,),
-                onPressed: _signOut,
-              ),
-            ],
-          ),
+    if (currentUserId == null) {
+      return const Scaffold(
+        body: Center(child: Text("Not logged in")),
+      );
+    }
 
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUserId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final userDoc = snapshot.data!;
+          if (!userDoc.exists) {
+            return const Center(child: Text("User not found"));
+          }
+
+          final userData = userDoc.data() as Map<String, dynamic>?;
+
+          if (userData == null) {
+            return const Center(child: Text("User data not found"));
+          }
+
+          String name = userData['name'] ?? 'No Name';
+          String profileImage = userData['profileImage'] ?? '';
+          int followersCount = userData['followersCount'] ?? 0;
+          int postsCount = userData['postsCount'] ?? 0;
+
+          return SingleChildScrollView(
+            child: Column(
               children: [
-                Image.asset(
-                  'assets/images/Oval.png',
-                ),
-                SizedBox(width: 15,),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // Top row: Logo + Logout
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Сарнай',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Rubik",
-                        fontSize: 16,
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Image.asset('assets/images/Logo.png'),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text: '0 ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(text: 'Дагагчтай'),
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: '0 ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(text: 'Пост нийтлэсэн'),
-                        ],
-                      ),
+                    IconButton(
+                      icon: const Icon(Icons.logout, color: Colors.white),
+                      onPressed: _signOut,
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20,),
-          Container(
-            width: 343,
-            height: 35,
-            padding: const EdgeInsets.symmetric(vertical: 13),
-            clipBehavior: Clip.antiAlias,
-            decoration: ShapeDecoration(
-              color: Colors.black,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: const Color(0xFF262626),
-                ),
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                'Профайл засах',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: -0.15,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20,),
-          Container(
-            width: 375,
-            height: 35,
-            padding: const EdgeInsets.only(left: 16),
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                  color: const Color(0xFF262626),
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 15,
-              children: [
-                Image.asset('assets/images/Shape.png'),
-                Text(
-                  'Постууд',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 50,),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 13,
-            children: [
-              Container(
-                width: 38,
-                height: 38,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(),
-                child: SvgPicture.asset('assets/images/no-image.svg'),
-              ),
-              SizedBox(
-                width: 191,
-                child: Text(
-                  'Танд одоогоор зураг байхгүй байна.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFFA0A0A0),
-                    fontSize: 14,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: -0.10,
-                  ),
-                ),
-              ),
-            ],
-          )
 
-        ],
+                // Profile info
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    children: [
+                      profileImage.isNotEmpty
+                          ? CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(profileImage),
+                      )
+                          : SvgPicture.asset(
+                        'assets/images/no-image.svg',
+                        width: 60,
+                        height: 60,
+                      ),
+                      const SizedBox(width: 15),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(name, style: const TextStyle(color: Colors.white, fontSize: 16)),
+                          Text('$followersCount Дагагчтай',
+                              style: const TextStyle(color: Colors.white)),
+                          Text('$postsCount Пост нийтлэсэн',
+                              style: const TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Profile edit button
+                SizedBox(height: 20),
+                Container(
+                  width: 343,
+                  height: 35,
+                  padding: const EdgeInsets.symmetric(vertical: 13),
+                  clipBehavior: Clip.antiAlias,
+                  decoration: ShapeDecoration(
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(width: 1, color: Color(0xFF262626)),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Профайл засах',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+                // Post tab header
+                Container(
+                  width: double.infinity,
+                  height: 35,
+                  padding: const EdgeInsets.only(left: 16),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Color(0xFF262626), width: 1),
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.grid_on, color: Colors.white),
+                      SizedBox(width: 10),
+                      Text(
+                        'Постууд',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 10),
+
+                // Grid of posts
+                StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('posts')
+                      .where('userId', isEqualTo: currentUserId)
+                      .orderBy('createdAt', descending: true)
+                      .snapshots(),
+                  builder: (context, postSnapshot) {
+                    if (postSnapshot.hasError) {
+                      return Center(child: Text('Error: ${postSnapshot.error}'));
+                    }
+
+                    if (!postSnapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    final posts = postSnapshot.data!.docs;
+
+                    if (posts.isEmpty) {
+                      return Column(
+                        children: [
+                          SizedBox(height: 50),
+                          SvgPicture.asset('assets/images/no-image.svg', width: 38, height: 38),
+                          SizedBox(height: 10),
+                          const Text(
+                            'Танд одоогоор зураг байхгүй байна.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xFFA0A0A0)),
+                          ),
+                        ],
+                      );
+                    }
+
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: posts.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        final post = posts[index].data() as Map<String, dynamic>;
+                        return GestureDetector(
+                          onTap: () {
+                            // Post detail руу шилжих боломж
+                          },
+                          child: Image.network(
+                            post['postImage'] ?? 'https://via.placeholder.com/150',
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
 
+// Sign out function
 Future<void> _signOut() async {
   await FirebaseAuth.instance.signOut();
 }
+

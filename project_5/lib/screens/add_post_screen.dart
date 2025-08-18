@@ -1,148 +1,107 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({super.key});
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ImageUploadScreen extends StatefulWidget {
+  const ImageUploadScreen({super.key});
 
   @override
-  State<AddPostScreen> createState() => _AddPostScreenState();
+  State<ImageUploadScreen> createState() => _ImageUploadScreenState();
 }
 
-class _AddPostScreenState extends State<AddPostScreen> {
+class _ImageUploadScreenState extends State<ImageUploadScreen> {
+  final ImagePicker _picker = ImagePicker();
+  File? _selectedImage;
+  bool _isUploading = false;
+
+  // Pick an image from the gallery
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
+  // Upload the image to Firebase Storage + Save URL to Firestore
+  Future<void> _uploadImage() async {
+    if (_selectedImage == null) return;
+
+    setState(() {
+      _isUploading = true;
+    });
+
+    try {
+      // 1. Firebase Storage руу upload хийх
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('uploads/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final uploadTask = storageRef.putFile(_selectedImage!);
+
+      final snapshot = await uploadTask;
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+
+      // 2. Firestore дээр URL хадгалах
+      await FirebaseFirestore.instance.collection('images').add({
+        'url': downloadUrl,
+        'uploadedAt': FieldValue.serverTimestamp(),
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Image uploaded and saved to Firestore!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Upload failed: $e')),
+      );
+    } finally {
+      setState(() {
+        _isUploading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child:
-    Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(width: 10),
-              IconButton(onPressed: (){
-                Navigator.pop(context);
-              }, icon: Icon (Icons.arrow_back_ios_new_outlined, color: Colors.white,)),
-              SizedBox(width: 90),
-              Text('Зураг оруулах',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Rubik',
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20,),
-          Container(
-            width: 343,
-            height: 139,
-            clipBehavior: Clip.antiAlias,
-            decoration: ShapeDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.07, 1.00),
-                end: Alignment(0.96, 0.18),
-                colors: [Colors.brown.shade700, Colors.brown.shade800],
-              ),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  width: 1,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                ),
-                borderRadius: BorderRadius.circular(34),
-              ),
-            ),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(onPressed: (){}, icon: Icon (Icons.add_photo_alternate_outlined,color: Colors.orange,)),
-                  Text(
-                    'Зураг оруулах',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'Rubik',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          Row(
-            children: [
-              SizedBox(width: 15),
-              IconButton(onPressed: (){}, icon: Icon(Icons.wrap_text_outlined, color: Colors.white,)),
-              Text('Зургийн тайлбар',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Rubik',
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: TextFormField(
-              onChanged: (value) {
-                // Handle text change
-              },
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Энд бичнэ үү',
-                hintStyle: TextStyle(
-                  color: Colors.white38,
-                  fontSize: 14,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.w400,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.white38),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 100),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Container(
-              child: TextButton(
-                onPressed: () {
-                  // Handle submit action
-                },
-                style: TextButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                child: const Text(
-                  'Постлох',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Rubik',
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                gradient: LinearGradient(
-                  begin: Alignment(0.07, 1.00),
-                  end: Alignment(0.96, 0.18),
-                  colors: [
-                    const Color(0xFFE76A01),
-                    const Color(0xFFF99440)
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: const Text('Image Upload'),
+        backgroundColor: Colors.black,
       ),
-    ));
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _selectedImage != null
+                ? Image.file(
+              _selectedImage!,
+              height: 200,
+              width: 200,
+              fit: BoxFit.cover,
+            )
+                : const Text(
+              'No image selected',
+              style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _pickImage,
+              child: const Text('Pick Image'),
+            ),
+            const SizedBox(height: 20),
+            _isUploading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+              onPressed: _uploadImage,
+              child: const Text('Upload Image'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

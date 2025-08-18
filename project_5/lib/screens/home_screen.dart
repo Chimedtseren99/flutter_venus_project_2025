@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'feed_screen.dart';
-import 'add_post_screen.dart';
 import 'profile_screen.dart';
+import 'add_story_screen.dart';
+import 'package:project_5/screens/add_story_screen.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -16,9 +18,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     FeedScreen(),
-    AddPostScreen(),
+    AddStoryScreen(),
     ProfileScreen(),
   ];
 

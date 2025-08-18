@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_5/screens/add_story_screen.dart';
+import 'package:project_5/screens/profile_screen.dart';
+import 'package:project_5/screens/storyViewScreen.dart';
+
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -9,6 +12,18 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<FeedScreen> {
+  void _addNewStory(String name, String imagePath) {
+    setState(() {
+      stories.insert(0, {
+        'id': imagePath,
+        'name': name,
+        'image': imagePath,
+      });
+    });
+  }
+
+
+
   final List<Map<String, String>> stories = [
     {
       'id': 'assets/images/Inner Oval.png',
@@ -50,21 +65,29 @@ class _HomeScreenState extends State<FeedScreen> {
                   separatorBuilder: (_, __) => const SizedBox(width: 10),
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      return _AddStoryButton(
-                        onTap: () {
-                          // TODO: Add story logic
-                        },
-                      );
+                      return _AddStoryButton(onAddStory: _addNewStory);
                     }
+
                     final data = stories[index - 1];
                     return StoryBubble(
                       name: data["name"]!,
                       imagePath: data["image"]!,
                       onTap: () {
-                        // TODO: Open story logic
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => StoryViewScreen(
+                              name: data["name"]!,
+                              imagePath: data["image"]!,
+                            ),
+                          ),
+                        );
                       },
                     );
+
                   },
+
+
                 ),
               ),
               const SizedBox(height: 20),
@@ -135,11 +158,11 @@ class StoryBubble extends StatelessWidget {
               ),
             ),
             child: ClipOval(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
+              child: imagePath.startsWith('http')
+                  ? Image.network(imagePath, fit: BoxFit.cover)
+                  : Image.asset(imagePath, fit: BoxFit.cover),
             ),
+
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -162,15 +185,24 @@ class StoryBubble extends StatelessWidget {
 }
 
 class _AddStoryButton extends StatelessWidget {
-  final VoidCallback? onTap;
+  final Function(String name, String imagePath)? onAddStory;
 
-  const _AddStoryButton({this.onTap});
+  const _AddStoryButton({this.onAddStory});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(999),
-      onTap: onTap,
+      onTap: () async {
+        final result = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => AddStoryScreen()),
+        );
+        if (result != null && onAddStory != null) {
+          onAddStory!(result['name'], result['image']); // insert(0) дотор нэмэгдэнэ
+        }
+      },
+
       child: Column(
         children: [
           Container(
@@ -184,16 +216,7 @@ class _AddStoryButton extends StatelessWidget {
                 width: 3,
               ),
             ),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddStoryScreen(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.add, color: Colors.white, size: 32)),
+            child: const Icon(Icons.add, color: Colors.white, size: 32),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -209,6 +232,7 @@ class _AddStoryButton extends StatelessWidget {
     );
   }
 }
+
 
 class Postcard extends StatefulWidget {
   final String ProfileImage;
@@ -264,13 +288,27 @@ class _PostcardState extends State<Postcard> {
                 backgroundImage: AssetImage(widget.ProfileImage),
               ),
               const SizedBox(width: 10),
-              Text(
-                widget.UserName,
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              GestureDetector(
+                onTap: () {
+                  // UserName дээр дарахад тухайн хүний профайл руу шилжих
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileScreen(
+                        userId: widget.UserName, // Хэрэглэгчийн нэр/ID дамжуулж байна
+                      ),
+                    ),
+                  );
+                },
+                child: Text(
+                  widget.UserName,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
               ),
             ],
           ),
+
           const SizedBox(height: 10),
           Image.asset(
             widget.PostImage,
